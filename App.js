@@ -1,5 +1,6 @@
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { NativeRouter, Route, Link, Switch } from "react-router-native";
 import SelfiePreview from "./SelfiePreview";
 
@@ -25,9 +26,30 @@ export default function App() {
 }
 
 function Home() {
+  const [allPhotos, addAllPhotos] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const photos = await AsyncStorage.getItem("photos");
+      if (!photos) {
+        AsyncStorage.setItem("photos", JSON.stringify([]));
+      } else {
+        addAllPhotos(JSON.parse(photos));
+      }
+    })();
+  }, []);
+
   return (
     <View>
       <Text>Home</Text>
+      {allPhotos &&
+        allPhotos.map((photo) => {
+          return (
+            <Image
+              style={{ width: 200, height: 200 }}
+              source={{ uri: photo.uri }}
+            />
+          );
+        })}
     </View>
   );
 }
@@ -56,4 +78,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
   },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
 });
+
+// const styles = StyleSheet.create({
+//   container: {
+//     paddingTop: 50,
+//   },
+//   tinyLogo: {
+//     width: 50,
+//     height: 50,
+//   },
+//   logo: {
+//     width: 66,
+//     height: 58,
+//   },
+// });

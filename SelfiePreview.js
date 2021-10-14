@@ -2,11 +2,27 @@ import React, { useState, useEffect, useRef } from "react";
 import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
 import { Camera } from "expo-camera";
 import CameraPermissionsWrapper from "./CameraPermissionsWrapper";
+import { useHistory } from "react-router-dom";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SelfiePreview() {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [lastPhotoURI, setLastPhotoURI] = useState(null);
   const cameraRef = useRef(null);
+  let history = useHistory();
+
+  const savePhotoToListView = async (photo) => {
+    try {
+      const photosJSON = await AsyncStorage.getItem("photos");
+      await AsyncStorage.setItem(
+        "photos",
+        JSON.stringify([photo, ...JSON.parse(photosJSON)])
+      );
+    } catch (e) {
+      console.log(e);
+    }
+    history.push("/");
+  };
 
   if (lastPhotoURI !== null) {
     return (
@@ -84,6 +100,8 @@ export default function SelfiePreview() {
               if (cameraRef.current) {
                 let photo = await cameraRef.current.takePictureAsync();
                 setLastPhotoURI(photo.uri);
+                console.log("photo", photo);
+                savePhotoToListView(photo);
               }
             }}
           >
