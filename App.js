@@ -1,103 +1,59 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
-import { Camera } from "expo-camera";
-import CameraPermissionsWrapper from './CameraPermissionsWrapper';
+import React from "react";
+import { Text, View, StyleSheet } from "react-native";
+import { NativeRouter, Route, Link, Switch } from "react-router-native";
+import SelfiePreview from "./SelfiePreview";
 
 export default function App() {
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [lastPhotoURI, setLastPhotoURI] = useState(null);
-  const cameraRef = useRef(null);
-
-  if (lastPhotoURI !== null) {
-    return (
-      <ImageBackground
-        source={{ uri: lastPhotoURI }}
-        style={{
-          flex: 1,
-          backgroundColor: "transparent",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <TouchableOpacity
-          style={{
-            flex: 0.2,
-            alignSelf: "flex-end",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#666",
-            marginBottom: 40,
-            marginLeft: 20,
-          }}
-          onPress={() => {
-            setLastPhotoURI(null);
-          }}
-        >
-          <Text style={{ fontSize: 30, padding: 10, color: "white" }}>❌</Text>
-        </TouchableOpacity>
-      </ImageBackground>
-    );
-  }
-
   return (
-    <CameraPermissionsWrapper>
-      <Camera style={{ flex: 1 }} type={type} ref={cameraRef}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "transparent",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              flex: 0.2,
-              alignSelf: "flex-end",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#666",
-              marginBottom: 40,
-              marginLeft: 20,
-            }}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}
-          >
-            <Text style={{ fontSize: 30, padding: 10, color: "white" }}>♻</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              flex: 0.2,
-              alignSelf: "flex-end",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#666",
-              marginBottom: 40,
-              marginLeft: 20,
-            }}
-            onPress={async () => {
-              if (cameraRef.current) {
-                let photo = await cameraRef.current.takePictureAsync();
-                setLastPhotoURI(photo.uri);
-              }
-            }}
-          >
-            <Text style={{ fontSize: 30, padding: 10, color: "white" }}>
-              📸
-            </Text>
-          </TouchableOpacity>
+    <NativeRouter>
+      <View style={styles.container}>
+        <View style={styles.nav}>
+          <Link to="/" underlayColor="#f0f4f7">
+            <Text>Home</Text>
+          </Link>
+          <Link to="/camera" underlayColor="#f0f4f7">
+            <Text>Camera</Text>
+          </Link>
         </View>
-      </Camera>
-    </CameraPermissionsWrapper>
+      </View>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/camera" component={SelfiePreview} />
+      </Switch>
+    </NativeRouter>
   );
 }
+
+function Home() {
+  return (
+    <View>
+      <Text>Home</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 25,
+    padding: 10,
+  },
+  header: {
+    fontSize: 20,
+  },
+  nav: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  navItem: {
+    flex: 1,
+    alignItems: "center",
+    padding: 10,
+  },
+  subNavItem: {
+    padding: 5,
+  },
+  topic: {
+    textAlign: "center",
+    fontSize: 15,
+  },
+});
