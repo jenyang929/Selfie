@@ -11,7 +11,7 @@ export default function CameraPage() {
   const cameraRef = useRef(null);
   const history = useHistory();
 
-  const savePhotoToListView = async () => {
+  const savePhotoToSelfiePage = async () => {
     try {
       if (!cameraRef?.current) {
         return;
@@ -39,11 +39,11 @@ export default function CameraPage() {
 
   return (
     <CameraPermissionsWrapper>
-      <View style={{ backgroundColor: "black" }}>
+      <View style={{ backgroundColor: "black", padding: 20 }}>
         <Link to="/" underlayColor="#f0f4f7">
           <Image
             style={{ width: 25, height: 25 }}
-            source={require("./arrow-left.png")}
+            source={require("../assets/arrow-left.png")}
           />
         </Link>
       </View>
@@ -59,33 +59,32 @@ export default function CameraPage() {
           backgroundColor: "black",
           flexDirection: "row",
           justifyContent: "center",
+          maxWidth: "100%",
+          height: "30%",
         }}
       >
         <TouchableOpacity
           style={{
-            // flex: 0.2,
             alignSelf: "flex-end",
             alignItems: "center",
             justifyContent: "center",
-            marginBottom: 40,
-            marginLeft: 20,
+            marginBottom: 50,
             width: 70,
             height: 70,
             borderColor: "#fff",
             borderRadius: 50,
-            // backgroundColor: "red",
           }}
-          onPress={savePhotoToListView}
+          onPress={savePhotoToSelfiePage}
         >
           {/* <Text style={{ fontSize: 30, padding: 10, color: "white" }}>
               📸
             </Text> */}
           <View
             style={{
-              width: 64,
-              height: 64,
+              width: 80,
+              height: 80,
               borderRadius: 50,
-              borderColor: "black",
+              borderColor: "white",
               backgroundColor: "#fff",
             }}
           ></View>

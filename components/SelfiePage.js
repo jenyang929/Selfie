@@ -2,8 +2,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { Link } from "react-router-native";
+import { entireScreenWidth, entireScreenHeight } from "../styles/dimensions";
+import { Typography } from "../styles/typography";
 
-export default function ListView({ match }) {
+export default function SelfiePage({ match }) {
   const { id } = match.params;
   const [currPhoto, getCurrPhoto] = useState({});
 
@@ -21,36 +23,28 @@ export default function ListView({ match }) {
         <Link to="/" underlayColor="#f0f4f7">
           <Image
             style={{ width: 25, height: 25 }}
-            source={require("./arrow.png")}
+            source={require("../assets/arrow.png")}
           />
         </Link>
         <Text style={[styles.photoPreviewTitle, { fontSize: 18 }]}>Selfie</Text>
       </View>
+
       <View style={{ display: "flex" }}>
-        <Image
-          style={{
-            width: 350,
-            height: 350,
-            borderRadius: 20,
-            justifyContent: "center",
-            alignSelf: "center",
-          }}
-          source={{ uri: currPhoto?.uri }}
-        />
-      </View>
-      <View style={styles.jcsb}>
-        <Text style={{ fontFamily: "Inter_700Bold", fontSize: 18 }}>
-          {currPhoto?.date}
-        </Text>
-        <Text
-          style={{
-            fontFamily: "Inter_700Bold",
-            textDecorationLine: "underline",
-            fontSize: 18,
-          }}
-        >
-          {currPhoto?.time}
-        </Text>
+        <Image style={styles.selfieImage} source={{ uri: currPhoto?.uri }} />
+        <View style={styles.dateTimeContainer}>
+          <Text style={{ fontFamily: "Inter_700Bold", fontSize: 18 }}>
+            {currPhoto?.date}
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Inter_700Bold",
+              textDecorationLine: "underline",
+              fontSize: 18,
+            }}
+          >
+            {currPhoto?.time}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -59,11 +53,16 @@ export default function ListView({ match }) {
 const styles = StyleSheet.create({
   photoPreviewContainer: {
     display: "flex",
-    fontFamily: "Inter",
+    ...Typography.regular,
+  },
+  selfieImage: {
+    width: entireScreenWidth * 0.9,
+    height: entireScreenHeight * 0.5,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignSelf: "center",
   },
   photoPreviewHeader: {
-    // display: "auto",
-    // justifyContent: "space-between",
     position: "relative",
     flexDirection: "row",
     padding: 20,
@@ -72,12 +71,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: "50%",
     marginTop: 25,
-    // transform: [{ translateX: -50 }],
   },
-  jcsb: {
+  dateTimeContainer: {
     margin: 20,
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     flexDirection: "row",
   },
 });
