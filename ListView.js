@@ -1,8 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, StyleSheet } from "react-native";
 import { Link } from "react-router-native";
-import { styles } from "./App";
 
 export default function ListView({ match }) {
   const { id } = match.params;
@@ -25,7 +24,7 @@ export default function ListView({ match }) {
             source={require("./arrow.png")}
           />
         </Link>
-        <Text style={styles.photoPreviewTitle}>Selfie</Text>
+        <Text style={[styles.photoPreviewTitle, { fontSize: 18 }]}>Selfie</Text>
       </View>
       <View style={{ display: "flex" }}>
         <Image
@@ -40,11 +39,45 @@ export default function ListView({ match }) {
         />
       </View>
       <View style={styles.jcsb}>
-        <Text>{currPhoto?.date}</Text>
-        <Text style={{ textDecorationLine: "underline" }}>
+        <Text style={{ fontFamily: "Inter_700Bold", fontSize: 18 }}>
+          {currPhoto?.date}
+        </Text>
+        <Text
+          style={{
+            fontFamily: "Inter_700Bold",
+            textDecorationLine: "underline",
+            fontSize: 18,
+          }}
+        >
           {currPhoto?.time}
         </Text>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  photoPreviewContainer: {
+    display: "flex",
+    fontFamily: "Inter",
+  },
+  photoPreviewHeader: {
+    // display: "auto",
+    // justifyContent: "space-between",
+    position: "relative",
+    flexDirection: "row",
+    padding: 20,
+  },
+  photoPreviewTitle: {
+    position: "absolute",
+    left: "50%",
+    marginTop: 25,
+    // transform: [{ translateX: -50 }],
+  },
+  jcsb: {
+    margin: 20,
+    display: "flex",
+    justifyContent: "space-around",
+    flexDirection: "row",
+  },
+});

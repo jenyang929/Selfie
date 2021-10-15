@@ -1,3 +1,4 @@
+// import "inter-ui/inter.css";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect } from "react";
 import {
@@ -10,25 +11,48 @@ import {
   StatusBar,
 } from "react-native";
 import { NativeRouter, Route, Link, Switch } from "react-router-native";
-import SelfiePreview from "./SelfiePreview";
+import CameraPage from "./CameraPage";
 import ListView from "./ListView";
+import {
+  useFonts,
+  Inter_100Thin,
+  Inter_200ExtraLight,
+  Inter_300Light,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_800ExtraBold,
+  Inter_900Black,
+} from "@expo-google-fonts/inter";
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Inter_100Thin,
+    Inter_200ExtraLight,
+    Inter_300Light,
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_800ExtraBold,
+    Inter_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View>
+        <Text>App loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <NativeRouter>
-      <View style={styles.container}>
-        {/* <View style={styles.nav}>
-          <Link to="/" underlayColor="#f0f4f7">
-            <Text>Home</Text>
-          </Link>
-          <Link to="/camera" underlayColor="#f0f4f7">
-            <Text>Camera</Text>
-          </Link>
-        </View> */}
-      </View>
+      <View style={styles.container}></View>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/camera" component={SelfiePreview} />
+        <Route exact path="/camera" component={CameraPage} />
         <Route exact path="/selfie/:id" component={ListView} />
       </Switch>
     </NativeRouter>
@@ -52,8 +76,12 @@ function Home() {
   return (
     <View>
       <View style={styles.header}>
-        <Text>Sort</Text>
-        <Text>Selfies</Text>
+        <Text style={{ fontFamily: "Inter_400Regular", fontSize: 18 }}>
+          Sort
+        </Text>
+        <Text style={{ fontFamily: "Inter_400Regular", fontSize: 18 }}>
+          Selfies
+        </Text>
         <Link to="/camera" underlayColor="#f0f4f7">
           <Image
             style={{ width: 25, height: 25 }}
@@ -64,25 +92,24 @@ function Home() {
       <SafeAreaView style={styles.scrollContainer}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.selfiesContainer}>
-            {allPhotos &&
-              allPhotos.map((photo, idx) => {
-                return (
-                  <View style={styles.item}>
-                    <Link to={`/selfie/${idx}`} underlayColor="#f0f4f7">
-                      <Image
-                        key={idx}
-                        style={styles.selfie}
-                        source={{ uri: photo.uri }}
-                      />
-                    </Link>
+            {allPhotos.map((photo, idx) => {
+              return (
+                <View style={styles.item}>
+                  <Link to={`/selfie/${idx}`} underlayColor="#f0f4f7">
+                    <Image
+                      key={idx}
+                      style={styles.selfie}
+                      source={{ uri: photo.uri }}
+                    />
+                  </Link>
 
-                    <View pointerEvents="none" style={styles.dateTimeContainer}>
-                      <Text style={styles.dateTime}>{photo.date}</Text>
-                      <Text style={styles.dateTime}>{photo.time}</Text>
-                    </View>
+                  <View pointerEvents="none" style={styles.dateTimeContainer}>
+                    <Text style={styles.dateTime}>{photo.date}</Text>
+                    <Text style={styles.dateTime}>{photo.time}</Text>
                   </View>
-                );
-              })}
+                </View>
+              );
+            })}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -91,16 +118,10 @@ function Home() {
 }
 
 export const styles = StyleSheet.create({
-  // scrollContainer: {
-  //   flex: 1,
-  //   paddingTop: StatusBar.currentHeight,
-  // },
-  // scrollView: {
-  //   marginHorizontal: 20,
-  // },
   container: {
     marginTop: 25,
     padding: 10,
+    fontFamily: "Inter_400Regular",
   },
   header: {
     fontSize: 20,
@@ -130,47 +151,26 @@ export const styles = StyleSheet.create({
     height: 50,
   },
   selfiesContainer: {
-    flexWrap: "wrap",
     flex: 1,
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "flex-start",
+    paddingLeft: 18,
+    paddingRight: 18,
   },
   item: {
     width: "50%",
     position: "relative",
-    // textAlign: "center",
+    paddingBottom: 13,
   },
   selfie: {
-    borderRadius: 20,
-    width: 175,
-    height: 250,
-    margin: 15,
-  },
-  photoPreviewContainer: {
-    display: "flex",
-    // width: "50%",
-  },
-  photoPreviewHeader: {
-    // fontSize: 20,
-    // display: "auto",
-    // justifyContent: "space-between",
-    position: "relative",
-    flexDirection: "row",
-    padding: 20,
-  },
-  photoPreviewTitle: {
-    position: "absolute",
-    left: "50%",
-    // transform: [{ translateX: -50 }],
-  },
-  jcsb: {
-    margin: 20,
-    display: "flex",
-    justifyContent: "space-around",
-    flexDirection: "row",
+    borderRadius: 15,
+    width: 153,
+    height: 225,
   },
   dateTime: {
     color: "white",
+    fontFamily: "Inter_400Regular",
   },
   dateTimeContainer: {
     position: "absolute",

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Camera } from "expo-camera";
 import CameraPermissionsWrapper from "./CameraPermissionsWrapper";
 import { useHistory } from "react-router-dom";
@@ -7,7 +7,7 @@ import { Link } from "react-router-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function SelfiePreview() {
+export default function CameraPage() {
   const cameraRef = useRef(null);
   const history = useHistory();
 
@@ -52,33 +52,53 @@ export default function SelfiePreview() {
         style={{ flex: 1 }}
         type={Camera.Constants.Type.front}
         ref={cameraRef}
+      ></Camera>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "black",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
       >
-        <View
+        <TouchableOpacity
           style={{
-            flex: 1,
-            backgroundColor: "transparent",
-            flexDirection: "row",
+            // flex: 0.2,
+            alignSelf: "flex-end",
+            alignItems: "center",
             justifyContent: "center",
+            marginBottom: 40,
+            marginLeft: 20,
+            width: 70,
+            height: 70,
+            borderColor: "#fff",
+            borderRadius: 50,
+            // backgroundColor: "red",
           }}
+          onPress={savePhotoToListView}
         >
-          <TouchableOpacity
-            style={{
-              flex: 0.2,
-              alignSelf: "flex-end",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#666",
-              marginBottom: 40,
-              marginLeft: 20,
-            }}
-            onPress={savePhotoToListView}
-          >
-            <Text style={{ fontSize: 30, padding: 10, color: "white" }}>
+          {/* <Text style={{ fontSize: 30, padding: 10, color: "white" }}>
               📸
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+            </Text> */}
+          <View
+            style={{
+              width: 64,
+              height: 64,
+              borderRadius: 50,
+              borderColor: "black",
+              backgroundColor: "#fff",
+            }}
+          ></View>
+        </TouchableOpacity>
+      </View>
     </CameraPermissionsWrapper>
   );
 }
+
+export const styles = StyleSheet.create({
+  button: {
+    width: 64,
+    height: 64,
+    // borderRadius: "50%",
+  },
+});
