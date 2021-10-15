@@ -39,65 +39,53 @@ export default function CameraPage() {
 
   return (
     <CameraPermissionsWrapper>
-      <View style={{ backgroundColor: "black", padding: 20 }}>
+      <View style={styles.header}>
         <Link to="/" underlayColor="#f0f4f7">
           <Image
-            style={{ width: 25, height: 25 }}
+            style={styles.backButton}
             source={require("../assets/arrow-left.png")}
           />
         </Link>
       </View>
 
       <Camera
-        style={{ flex: 1 }}
+        style={styles.camera}
         type={Camera.Constants.Type.front}
         ref={cameraRef}
       ></Camera>
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "black",
-          flexDirection: "row",
-          justifyContent: "center",
-          maxWidth: "100%",
-          height: "30%",
-        }}
-      >
+      <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={{
-            alignSelf: "flex-end",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: 50,
-            width: 70,
-            height: 70,
-            borderColor: "#fff",
-            borderRadius: 50,
-          }}
+          style={styles.button}
           onPress={savePhotoToSelfiePage}
-        >
-          {/* <Text style={{ fontSize: 30, padding: 10, color: "white" }}>
-              📸
-            </Text> */}
-          <View
-            style={{
-              width: 80,
-              height: 80,
-              borderRadius: 50,
-              borderColor: "white",
-              backgroundColor: "#fff",
-            }}
-          ></View>
-        </TouchableOpacity>
+        ></TouchableOpacity>
       </View>
     </CameraPermissionsWrapper>
   );
 }
 
 export const styles = StyleSheet.create({
+  header: {
+    backgroundColor: "black",
+    padding: 20,
+  },
+  backButton: {
+    width: 25,
+    height: 25,
+  },
+  camera: {
+    flex: 3,
+  },
+  buttonContainer: {
+    flex: 1,
+    display: "flex",
+    backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   button: {
-    width: 64,
-    height: 64,
-    // borderRadius: "50%",
+    width: 70,
+    height: 70,
+    backgroundColor: "white",
+    borderRadius: 50,
   },
 });

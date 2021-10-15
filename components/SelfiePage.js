@@ -18,32 +18,22 @@ export default function SelfiePage({ match }) {
   }, []);
 
   return (
-    <View style={styles.photoPreviewContainer}>
-      <View style={styles.photoPreviewHeader}>
+    <View style={styles.selfieContainer}>
+      <View style={styles.selfieHeader}>
         <Link to="/" underlayColor="#f0f4f7">
           <Image
-            style={{ width: 25, height: 25 }}
+            style={styles.backButton}
             source={require("../assets/arrow.png")}
           />
         </Link>
-        <Text style={[styles.photoPreviewTitle, { fontSize: 18 }]}>Selfie</Text>
+        <Text style={styles.selfieHeaderTitle}>Selfie</Text>
       </View>
 
-      <View style={{ display: "flex" }}>
+      <View style={styles.selfieBody}>
         <Image style={styles.selfieImage} source={{ uri: currPhoto?.uri }} />
         <View style={styles.dateTimeContainer}>
-          <Text style={{ fontFamily: "Inter_700Bold", fontSize: 18 }}>
-            {currPhoto?.date}
-          </Text>
-          <Text
-            style={{
-              fontFamily: "Inter_700Bold",
-              textDecorationLine: "underline",
-              fontSize: 18,
-            }}
-          >
-            {currPhoto?.time}
-          </Text>
+          <Text style={styles.date}>{currPhoto?.date}</Text>
+          <Text style={styles.time}>{currPhoto?.time}</Text>
         </View>
       </View>
     </View>
@@ -51,9 +41,19 @@ export default function SelfiePage({ match }) {
 }
 
 const styles = StyleSheet.create({
-  photoPreviewContainer: {
+  selfieContainer: {
     display: "flex",
     ...Typography.regular,
+  },
+  backButton: { width: 25, height: 25 },
+  selfieBody: {
+    display: "flex",
+  },
+  selfieHeaderTitle: {
+    position: "absolute",
+    left: "50%",
+    marginTop: 25,
+    fontSize: 18,
   },
   selfieImage: {
     width: entireScreenWidth * 0.9,
@@ -62,20 +62,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
   },
-  photoPreviewHeader: {
+  selfieHeader: {
     position: "relative",
     flexDirection: "row",
     padding: 20,
-  },
-  photoPreviewTitle: {
-    position: "absolute",
-    left: "50%",
-    marginTop: 25,
   },
   dateTimeContainer: {
     margin: 20,
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  date: {
+    ...Typography.bold,
+    fontSize: 18,
+  },
+  time: {
+    ...Typography.bold,
+    textDecorationLine: "underline",
+    fontSize: 18,
   },
 });
