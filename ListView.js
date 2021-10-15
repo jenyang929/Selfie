@@ -6,34 +6,44 @@ import { styles } from "./App";
 
 export default function ListView({ match }) {
   const { id } = match.params;
-  const [allPhotos, getAllPhotos] = useState([]);
   const [currPhoto, getCurrPhoto] = useState({});
 
   useEffect(() => {
     (async () => {
       const currentSelfie = await AsyncStorage.getItem("photos");
-      getAllPhotos(JSON.parse(currentSelfie));
-      getCurrPhoto(allPhotos[id]);
+      const parsedSelfies = JSON.parse(currentSelfie);
+      getCurrPhoto(parsedSelfies[id]);
     })();
   }, []);
 
   return (
-    <View>
-      <View style={styles.header}>
+    <View style={styles.photoPreviewContainer}>
+      <View style={styles.photoPreviewHeader}>
         <Link to="/" underlayColor="#f0f4f7">
-          <Text>Home</Text>
+          <Image
+            style={{ width: 25, height: 25 }}
+            source={require("./arrow.png")}
+          />
         </Link>
-        <Text>View My Selfie</Text>
+        <Text style={styles.photoPreviewTitle}>Selfie</Text>
       </View>
-      <View>
+      <View style={{ display: "flex" }}>
         <Image
-          style={{ width: 350, height: 350, borderRadius: 20, padding: 20 }}
+          style={{
+            width: 350,
+            height: 350,
+            borderRadius: 20,
+            justifyContent: "center",
+            alignSelf: "center",
+          }}
           source={{ uri: currPhoto?.uri }}
         />
       </View>
-      <View style={styles.header}>
-        <Text>Date</Text>
-        <Text>Time</Text>
+      <View style={styles.jcsb}>
+        <Text>{currPhoto?.date}</Text>
+        <Text style={{ textDecorationLine: "underline" }}>
+          {currPhoto?.time}
+        </Text>
       </View>
     </View>
   );

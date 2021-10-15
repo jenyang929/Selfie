@@ -1,6 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
 import { NativeRouter, Route, Link, Switch } from "react-router-native";
 import SelfiePreview from "./SelfiePreview";
 import ListView from "./ListView";
@@ -45,28 +53,51 @@ function Home() {
     <View>
       <View style={styles.header}>
         <Text>Sort</Text>
-        <Text>Selfie Home</Text>
+        <Text>Selfies</Text>
         <Link to="/camera" underlayColor="#f0f4f7">
-          <Text>Camera</Text>
+          <Image
+            style={{ width: 25, height: 25 }}
+            source={require("./camera.png")}
+          />
         </Link>
       </View>
-      <View style={styles.selfiesContainer}>
-        {allPhotos &&
-          allPhotos.map((photo, idx) => {
-            return (
-              <View>
-                <Link to={`/selfie/${idx}`} underlayColor="#f0f4f7">
-                  <Image style={styles.selfie} source={{ uri: photo.uri }} />
-                </Link>
-              </View>
-            );
-          })}
-      </View>
+      <SafeAreaView style={styles.scrollContainer}>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.selfiesContainer}>
+            {allPhotos &&
+              allPhotos.map((photo, idx) => {
+                return (
+                  <View style={styles.item}>
+                    <Link to={`/selfie/${idx}`} underlayColor="#f0f4f7">
+                      <Image
+                        key={idx}
+                        style={styles.selfie}
+                        source={{ uri: photo.uri }}
+                      />
+                    </Link>
+
+                    <View pointerEvents="none" style={styles.dateTimeContainer}>
+                      <Text style={styles.dateTime}>{photo.date}</Text>
+                      <Text style={styles.dateTime}>{photo.time}</Text>
+                    </View>
+                  </View>
+                );
+              })}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }
 
 export const styles = StyleSheet.create({
+  // scrollContainer: {
+  //   flex: 1,
+  //   paddingTop: StatusBar.currentHeight,
+  // },
+  // scrollView: {
+  //   marginHorizontal: 20,
+  // },
   container: {
     marginTop: 25,
     padding: 10,
@@ -100,25 +131,54 @@ export const styles = StyleSheet.create({
   },
   selfiesContainer: {
     flexWrap: "wrap",
-    // flexDirection: "column",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
+  item: {
+    width: "50%",
+    position: "relative",
+    // textAlign: "center",
   },
   selfie: {
     borderRadius: 20,
     width: 175,
     height: 250,
-    margin: 10,
+    margin: 15,
+  },
+  photoPreviewContainer: {
+    display: "flex",
+    // width: "50%",
+  },
+  photoPreviewHeader: {
+    // fontSize: 20,
+    // display: "auto",
+    // justifyContent: "space-between",
+    position: "relative",
+    flexDirection: "row",
+    padding: 20,
+  },
+  photoPreviewTitle: {
+    position: "absolute",
+    left: "50%",
+    // transform: [{ translateX: -50 }],
+  },
+  jcsb: {
+    margin: 20,
+    display: "flex",
+    justifyContent: "space-around",
+    flexDirection: "row",
+  },
+  dateTime: {
+    color: "white",
+  },
+  dateTimeContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
-// const styles = StyleSheet.create({
-//   container: {
-//     paddingTop: 50,
-//   },
-//   tinyLogo: {
-//     width: 50,
-//     height: 50,
-//   },
-//   logo: {
-//     width: 66,
-//     height: 58,
-//   },
-// });

@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Text,
-  View,
-  Platform,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, View, Platform } from "react-native";
 import { Camera } from "expo-camera";
 
 export default function CameraPermissionsWrapper({ children }) {
