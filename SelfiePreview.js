@@ -100,7 +100,6 @@ export default function SelfiePreview() {
               if (cameraRef.current) {
                 let photo = await cameraRef.current.takePictureAsync();
                 setLastPhotoURI(photo.uri);
-                console.log("photo", photo);
                 savePhotoToListView(photo);
               }
             }}

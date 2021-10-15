@@ -3,23 +3,25 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 import { NativeRouter, Route, Link, Switch } from "react-router-native";
 import SelfiePreview from "./SelfiePreview";
+import ListView from "./ListView";
 
 export default function App() {
   return (
     <NativeRouter>
       <View style={styles.container}>
-        <View style={styles.nav}>
+        {/* <View style={styles.nav}>
           <Link to="/" underlayColor="#f0f4f7">
             <Text>Home</Text>
           </Link>
           <Link to="/camera" underlayColor="#f0f4f7">
             <Text>Camera</Text>
           </Link>
-        </View>
+        </View> */}
       </View>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/camera" component={SelfiePreview} />
+        <Route exact path="/selfie/:id" component={ListView} />
       </Switch>
     </NativeRouter>
   );
@@ -27,6 +29,7 @@ export default function App() {
 
 function Home() {
   const [allPhotos, addAllPhotos] = useState([]);
+
   useEffect(() => {
     (async () => {
       const photos = await AsyncStorage.getItem("photos");
@@ -40,27 +43,40 @@ function Home() {
 
   return (
     <View>
-      <Text>Home</Text>
-      {allPhotos &&
-        allPhotos.map((photo) => {
-          return (
-            <Image
-              style={{ width: 200, height: 200 }}
-              source={{ uri: photo.uri }}
-            />
-          );
-        })}
+      <View style={styles.header}>
+        <Text>Sort</Text>
+        <Text>Selfie Home</Text>
+        <Link to="/camera" underlayColor="#f0f4f7">
+          <Text>Camera</Text>
+        </Link>
+      </View>
+      <View style={styles.selfiesContainer}>
+        {allPhotos &&
+          allPhotos.map((photo, idx) => {
+            return (
+              <View>
+                <Link to={`/selfie/${idx}`} underlayColor="#f0f4f7">
+                  <Image style={styles.selfie} source={{ uri: photo.uri }} />
+                </Link>
+              </View>
+            );
+          })}
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     marginTop: 25,
     padding: 10,
   },
   header: {
     fontSize: 20,
+    display: "flex",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    padding: 20,
   },
   nav: {
     flexDirection: "row",
@@ -82,8 +98,17 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  selfiesContainer: {
+    flexWrap: "wrap",
+    // flexDirection: "column",
+  },
+  selfie: {
+    borderRadius: 20,
+    width: 175,
+    height: 250,
+    margin: 10,
+  },
 });
-
 // const styles = StyleSheet.create({
 //   container: {
 //     paddingTop: 50,
