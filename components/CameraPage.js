@@ -4,7 +4,7 @@ import { Camera } from "expo-camera";
 import CameraPermissionsWrapper from "./CameraPermissionsWrapper";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-native";
-
+import { entireScreenWidth } from "../styles/dimensions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function CameraPage() {
@@ -66,10 +66,12 @@ export default function CameraPage() {
 export const styles = StyleSheet.create({
   header: {
     padding: 20,
+    width: entireScreenWidth * 0.1,
   },
   backButton: {
     width: 25,
     height: 25,
+    backgroundColor: "black",
   },
   camera: {
     flex: 3,
