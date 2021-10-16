@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
+import React, { useRef } from "react";
+import { View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Camera } from "expo-camera";
 import CameraPermissionsWrapper from "./CameraPermissionsWrapper";
 import { useHistory } from "react-router-dom";
@@ -65,7 +65,6 @@ export default function CameraPage() {
 
 export const styles = StyleSheet.create({
   header: {
-    backgroundColor: "black",
     padding: 20,
   },
   backButton: {
@@ -78,7 +77,7 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     display: "flex",
-    backgroundColor: "red",
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
   },
