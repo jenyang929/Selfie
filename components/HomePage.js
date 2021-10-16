@@ -35,9 +35,16 @@ export default function HomePage() {
         </Link>
       </View>
       <ScrollView>
-        <View style={styles.selfiesContainer}>
+        <View style={styles.selfiesContainer} testID="photo">
           {allPhotos.map((photo, idx) => {
-            return <Photo photo={photo} photoId={idx} key={`photo-${idx}`} />;
+            return (
+              <Photo
+                photo={photo}
+                data-testid="photo"
+                photoId={idx}
+                key={`photo-${idx}`}
+              />
+            );
           })}
         </View>
       </ScrollView>
