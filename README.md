@@ -1,3 +1,26 @@
+# Selfie
+
+![HomePage](./SelfieImages/homepage.png)
+![SelfiePage](./SelfieImages/selfiepage.png)
+![Camera](./SelfieImages/camera.png)
+
+# About this app
+
+- Created with JavaScript, React Native, and React with a couple of libraries for testing, fonts, react router, AsyncStorage, etc.
+- On the home page, you can see all of your selfies with a camera icon to take more selfies
+- Click on a selfie to view selfie details (ex. date and time)
+- Click on camera on the home page to take more selfies with only a front facing camera
+
+# Things to improve
+
+There are always things to help improve the app for the future! Some of the examples are:
+
+1. Tests - more tests the better!
+2. CSS - make universal/utility classes to make CSS more readable and reuseable
+3. Styling - Use CSS preprocessor and/or design UI libraries
+
+# Setup
+
 # Camera Example
 
 <p>
