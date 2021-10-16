@@ -10,7 +10,7 @@
 - On the home page, you can see all of your photos with a camera icon on the upper right hand corner to take more selfies
 - Click on a selfie to view photo details (ex. date and time)
 - Click on camera on the home page to take more selfies with only a front-facing camera
-- If you also close the app and open it again, you won't lose your photos due to localStorage.
+- If you also close the app and open it again, you won't lose your photos due to localStorage (AsyncStorage).
 
 # Setup
 
