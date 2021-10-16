@@ -30,18 +30,29 @@ yarn
 npm i
 ```
 
-3. To start the app ... 
-```
-npm start OR yarn start
-```
-
-4. If you don't have expo, you will have to download expo globally which is an iOS simulator. You can also download it onto your phone to use your phone as an emulator. Expo CLI requires node versions of these and above:
+3. If you don't have expo, you will have to download expo globally which is an iOS simulator. You can also download it onto your phone to use your phone as an emulator. Expo CLI requires node versions of these and above:
 ```
 expo-cli supports following Node.js versions:
 * >=12.13.0 <13.0.0 (Maintenance LTS)
 * >=14.0.0 <15.0.0 (Active LTS)
 * >=15.0.0 <17.0.0 (Current Release)
 ```
+
+4. You may also need to have watchman installed 
+```
+brew install watchman
+```
+
+5. If you don't have XCode, you need to install that as well. Download XCode app from the app store - this takes time!
+
+6. After you have everything installed, start the app!
+```
+npm start OR yarn start
+```
+One thing to note is that iOS simulator does not allow camera functionality but you can still take pictures. You'll just take photos of black screens. Hence I recommend using your phone expo to act as an emulator. 
+
+7. If you have expo on your phone, once you start the app, you can use the QR code or use the simulator in your recent project development to start the app. 
+
 
 # Things to improve
 
@@ -51,7 +62,7 @@ There are always things to help improve the app for the future! Some of the exam
 2. CSS - make universal/utility classes to make CSS more readable and reuseable
 3. Styling - Use CSS preprocessor and/or design UI libraries to help with styling
 
-...and many more!!
+...and much more!!
 
 # Boilerplate
 
