@@ -7,9 +7,10 @@
 # About this app
 
 - Created with JavaScript, React Native, and React with a couple of libraries for testing, fonts, react router, AsyncStorage, etc.
-- On the home page, you can see all of your selfies with a camera icon to take more selfies
-- Click on a selfie to view selfie details (ex. date and time)
-- Click on camera on the home page to take more selfies with only a front facing camera
+- On the home page, you can see all of your photos with a camera icon on the upper right hand corner to take more selfies
+- Click on a selfie to view photo details (ex. date and time)
+- Click on camera on the home page to take more selfies with only a front-facing camera
+- If you also close the app and open it again, you won't lose your photos due to localStorage.
 
 # Setup
 
@@ -49,14 +50,14 @@ brew install watchman
 ```
 npm start OR yarn start
 ```
-One thing to note is that iOS simulator does not allow camera functionality but you can still take pictures. You'll just take photos of black screens. Hence I recommend using your phone expo to act as an emulator. 
+One thing to note is that iOS simulator does not allow camera functionality but you can still take pictures. You'll just take photos of black screens. Hence I recommend using your phone expo app to act as an emulator. 
 
-7. If you have expo on your phone, once you start the app, you can use the QR code or use the simulator in your recent project development to start the app. 
+7. If you have expo on your phone, once you start the app on your browser, you can use the QR code or use the simulator in your recent project development to start the app. 
 
 
 # Things to improve
 
-There are always things to help improve the app for the future! Some of the examples are:
+There are always things to help improve the app for the future! Some of these examples are:
 
 1. Tests - more tests the better!
 2. CSS - make universal/utility classes to make CSS more readable and reuseable
@@ -68,4 +69,3 @@ There are always things to help improve the app for the future! Some of the exam
 
 Great thanks to this <a href="https://github.com/expo/create-react-native-app">boilerplate!</a>
 
-- Learn more about [Expo Camera](https://docs.expo.dev/versions/latest/sdk/camera).
